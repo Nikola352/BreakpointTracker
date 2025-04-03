@@ -16,7 +16,6 @@ class BreakpointListener(private val project: Project) : XBreakpointListener<XBr
     override fun breakpointAdded(breakpoint: XBreakpoint<*>) {
         val breakpointDataService = project.getService(BreakpointDataService::class.java)
         breakpointDataService.addBreakpoint(Breakpoint(breakpoint, System.currentTimeMillis()))
-        println(breakpoint.timeStamp)
     }
 
     override fun breakpointRemoved(breakpoint: XBreakpoint<*>) {

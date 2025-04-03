@@ -14,6 +14,11 @@
     </projectListeners>
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="com.github.nikola352.breakpointtracker.component.BreakpointTrackerActivity"/>
+        <postStartupActivity
+                implementation="com.github.nikola352.breakpointtracker.component.BreakpointTrackerActivity"/>
+
+        <toolWindow factoryClass="com.github.nikola352.breakpointtracker.ui.BreakpointTrackerToolWindowFactory"
+                    id="Breakpoint Tracker"
+                    anchor="bottom"/>
     </extensions>
 </idea-plugin>
