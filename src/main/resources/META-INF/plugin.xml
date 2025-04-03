@@ -9,13 +9,16 @@
     <depends>com.intellij.modules.xdebugger</depends>
 
     <projectListeners>
-        <listener class="com.github.nikola352.breakpointtracker.component.BreakpointListener"
+        <listener class="com.github.nikola352.breakpointtracker.messaging.BreakpointListener"
                   topic="com.intellij.xdebugger.breakpoints.XBreakpointListener"/>
+
+        <listener class="com.github.nikola352.breakpointtracker.messaging.BreakpointChangeListener"
+                  topic="com.github.nikola352.breakpointtracker.messaging.BreakpointChangeNotifier"/>
     </projectListeners>
 
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity
-                implementation="com.github.nikola352.breakpointtracker.component.BreakpointTrackerActivity"/>
+                implementation="com.github.nikola352.breakpointtracker.BreakpointTrackerActivity"/>
 
         <toolWindow factoryClass="com.github.nikola352.breakpointtracker.ui.BreakpointTrackerToolWindowFactory"
                     id="Breakpoint Tracker"

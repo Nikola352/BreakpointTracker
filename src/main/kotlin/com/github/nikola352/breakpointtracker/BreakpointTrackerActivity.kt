@@ -1,4 +1,4 @@
-package com.github.nikola352.breakpointtracker.component
+package com.github.nikola352.breakpointtracker
 
 import com.github.nikola352.breakpointtracker.model.Breakpoint
 import com.github.nikola352.breakpointtracker.service.BreakpointDataService

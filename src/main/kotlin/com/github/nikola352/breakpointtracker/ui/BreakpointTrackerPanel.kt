@@ -2,23 +2,25 @@ package com.github.nikola352.breakpointtracker.ui
 
 import com.github.nikola352.breakpointtracker.model.Breakpoint
 import com.github.nikola352.breakpointtracker.service.BreakpointDataService
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.ui.jcef.JBCefBrowser
+import java.awt.BorderLayout
+import javax.swing.JPanel
 
-class BreakpointTrackerWindow(toolWindow: ToolWindow) : Disposable {
+class BreakpointTrackerPanel(toolWindow: ToolWindow) : JPanel(BorderLayout()) {
     private val breakpointDataService = toolWindow.project.getService(BreakpointDataService::class.java)
     private val browser: JBCefBrowser = JBCefBrowser()
-    private val updateListener: (List<Breakpoint>) -> Unit = { updateBrowserContent() }
 
     init {
-        breakpointDataService.addListener(updateListener)
+        // Add browser content to this panel
+        add(browser.component, BorderLayout.CENTER)
+
+        // Initial content load
+        updateContent(breakpointDataService.breakpointCount, breakpointDataService.breakpoints)
     }
 
-    val content get() = browser.component
-
-    private fun updateBrowserContent() {
-        val html = generateHtml(breakpointDataService.breakpointCount, breakpointDataService.breakpoints)
+    fun updateContent(totalCount: Int, breakpoints: List<Breakpoint>) {
+        val html = generateHtml(totalCount, breakpoints)
         browser.loadHTML(html)
     }
 
@@ -36,9 +38,5 @@ class BreakpointTrackerWindow(toolWindow: ToolWindow) : Disposable {
 
         html.append("</table></body></html>")
         return html.toString()
-    }
-
-    override fun dispose() {
-        breakpointDataService.removeListener(updateListener)
     }
 }
