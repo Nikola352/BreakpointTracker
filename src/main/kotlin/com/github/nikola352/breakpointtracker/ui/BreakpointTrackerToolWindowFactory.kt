@@ -10,8 +10,8 @@ import com.intellij.ui.content.ContentFactory
  */
 class BreakpointTrackerToolWindowFactory: ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val breakpointWindow = BreakpointTrackerWindow(toolWindow)
-        val content = ContentFactory.getInstance().createContent(breakpointWindow.content, null, false)
+        val breakpointTrackerPanel = BreakpointTrackerPanel(toolWindow)
+        val content = ContentFactory.getInstance().createContent(breakpointTrackerPanel, null, false)
         toolWindow.contentManager.addContent(content)
     }
 }

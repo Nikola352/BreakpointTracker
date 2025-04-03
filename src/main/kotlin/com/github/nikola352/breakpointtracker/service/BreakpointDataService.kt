@@ -1,22 +1,21 @@
 package com.github.nikola352.breakpointtracker.service
 
+import com.github.nikola352.breakpointtracker.messaging.BreakpointChangeNotifier
 import com.github.nikola352.breakpointtracker.model.Breakpoint
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.project.Project
 import com.jetbrains.rd.util.ConcurrentHashMap
 
 /**
  * Service for managing in-memory storage of active breakpoints.
  *
- * Implements a Listener pattern to allow other modules to listen for data changes.
+ * Dispatches updates to a message bus topic: [BreakpointChangeNotifier].
  */
 @Service(Service.Level.PROJECT)
-class BreakpointDataService : Disposable {
+class BreakpointDataService(private val project: Project) : Disposable {
     // Thread safe map to store active breakpoints (by id)
     private val _breakpoints = ConcurrentHashMap<String, Breakpoint>()
-
-    // List of listeners to notify when data changes
-    private val listeners = ArrayList<(List<Breakpoint>) -> Unit>()
 
     /** Total count of all currently tracked breakpoints */
     val breakpointCount get() = _breakpoints.size
@@ -27,33 +26,24 @@ class BreakpointDataService : Disposable {
     /** Add a breakpoint to the tracking system */
     fun addBreakpoint(breakpoint: Breakpoint) {
         _breakpoints[breakpoint.id] = breakpoint
-        notifyListeners()
+        notifyChange()
     }
 
     /** Update breakpoint information */
     fun updateBreakpoint(breakpoint: Breakpoint) {
         _breakpoints[breakpoint.id] = breakpoint
-        notifyListeners()
+        notifyChange()
     }
 
     /** Remove a breakpoint from the tracking system */
     fun removeBreakpoint(id: String) {
         _breakpoints.remove(id)
-        notifyListeners()
+        notifyChange()
     }
 
-    fun addListener(listener: (List<Breakpoint>) -> Unit) {
-        listeners.add(listener)
-        listener(breakpoints)
-    }
-
-    fun removeListener(listener: (List<Breakpoint>) -> Unit) {
-        listeners.remove(listener)
-    }
-
-    private fun notifyListeners() {
-        val breakpoints = this.breakpoints
-        listeners.forEach { it(breakpoints) }
+    private fun notifyChange() {
+        val publisher = project.messageBus.syncPublisher(BreakpointChangeNotifier.TOPIC)
+        publisher.breakpointsChanged(breakpointCount, breakpoints)
     }
 
     override fun dispose() {

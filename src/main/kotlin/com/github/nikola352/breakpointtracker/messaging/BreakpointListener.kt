@@ -1,4 +1,4 @@
-package com.github.nikola352.breakpointtracker.component
+package com.github.nikola352.breakpointtracker.messaging
 
 import com.github.nikola352.breakpointtracker.model.Breakpoint
 import com.github.nikola352.breakpointtracker.service.BreakpointDataService
@@ -7,9 +7,9 @@ import com.intellij.xdebugger.breakpoints.XBreakpoint
 import com.intellij.xdebugger.breakpoints.XBreakpointListener
 
 /**
- * Service for managing in-memory storage of active breakpoints.
+ * Listener for breakpoint events in the IDE.
  *
- * This service is registered at the project level and automatically disposed when the project closes.
+ * Calls [BreakpointDataService] to dynamically update tracked breakpoints.
  */
 class BreakpointListener(private val project: Project) : XBreakpointListener<XBreakpoint<*>> {
 
