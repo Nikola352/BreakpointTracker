@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breakpoint Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Active Breakpoints: <span id="breakpoint-count">0</span></h2>
+        <div class="table-container">
+            <table id="breakpoints-table">
+                <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Line</th>
+                </tr>
+                </thead>
+                <tbody id="breakpoints-body">
+                <!-- Breakpoints will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

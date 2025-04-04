@@ -3,3 +3,7 @@ plugins {
 }
 
 rootProject.name = "BreakpointTracker"
+
+include(":frontend-server")
+//include(":plugin")
+include(":shared")
