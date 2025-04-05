@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breakpoint Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <div class="toolbar-title">
+                <h2>Breakpoints <span id="breakpoint-count" class="count-badge">0</span></h2>
+            </div>
+            <div class="toolbar-actions">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search breakpoints...">
+                    <span class="search-icon">⌕</span>
+                </div>
+                <div class="filter-container">
+                    <select id="type-filter">
+                        <option value="all">All Types</option>
+                        <option value="LINE">Line</option>
+                        <option value="FUNCTION">Function</option>
+                        <option value="FIELD">Field</option>
+                        <option value="EXCEPTION">Exception</option>
+                        <option value="UNKNOWN">Unknown</option>
+                    </select>
+                    <label class="toggle-container">
+                        <input type="checkbox" id="show-disabled-toggle" checked>
+                        <span class="toggle-label">Show Disabled</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="breakpoints-table">
+                <thead>
+                <tr>
+                    <th class="col-status"></th>
+                    <th class="col-type">Type</th>
+                    <th class="col-class">Descriptor</th>
+                    <th class="col-file">File</th>
+                    <th class="col-line">Line</th>
+                </tr>
+                </thead>
+                <tbody id="breakpoints-body">
+                <!-- Breakpoints will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <p>No breakpoints found</p>
+        </div>
+
+        <div id="details-panel" class="details-panel">
+            <div class="details-header">
+                <h3>Breakpoint Details</h3>
+                <button id="close-details" class="icon-button">×</button>
+            </div>
+            <div class="details-content">
+                <div class="detail-item">
+                    <span class="detail-label">Type:</span>
+                    <span id="detail-type" class="detail-value"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Descriptor:</span>
+                    <span id="detail-descriptor" class="detail-value"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">File:</span>
+                    <span id="detail-file" class="detail-value"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Line:</span>
+                    <span id="detail-line" class="detail-value"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Status:</span>
+                    <span id="detail-status" class="detail-value"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

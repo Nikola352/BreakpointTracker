@@ -16,6 +16,11 @@
                   topic="com.github.nikola352.breakpointtracker.messaging.BreakpointChangeNotifier"/>
     </projectListeners>
 
+    <applicationListeners>
+        <listener class="com.github.nikola352.breakpointtracker.messaging.ThemeChangeListener"
+                  topic="com.intellij.ide.ui.LafManagerListener"/>
+    </applicationListeners>
+
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity
                 implementation="com.github.nikola352.breakpointtracker.BreakpointTrackerActivity"/>
