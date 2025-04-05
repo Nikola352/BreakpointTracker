@@ -130,7 +130,7 @@ function renderBreakpointTable(breakpoints) {
         classCell.textContent = bp.descriptor || 'N/A';
         row.appendChild(classCell);
 
-        // File column with path formatting
+        // File column with path formatting and navigation
         const fileCell = document.createElement('td');
         if (bp.filePath) {
             const filePathDiv = document.createElement('div');
@@ -144,6 +144,13 @@ function renderBreakpointTable(breakpoints) {
             const fileNameSpan = document.createElement('span');
             fileNameSpan.className = 'file-name';
             fileNameSpan.textContent = fileName;
+
+            // Add navigation icon to indicate it's clickable
+            const navIcon = document.createElement('span');
+            navIcon.className = 'navigate-icon';
+            navIcon.textContent = '↗';
+            fileNameSpan.appendChild(navIcon);
+
             filePathDiv.appendChild(fileNameSpan);
 
             if (dirPath) {
@@ -153,24 +160,54 @@ function renderBreakpointTable(breakpoints) {
                 filePathDiv.appendChild(dirSpan);
             }
 
+            // Add click handler for navigation
+            filePathDiv.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent row selection
+                navigateToBreakpoint(bp);
+            });
+
             fileCell.appendChild(filePathDiv);
         } else {
             fileCell.textContent = 'Unknown';
         }
         row.appendChild(fileCell);
 
-        // Line column
+        // Line column with navigation
         const lineCell = document.createElement('td');
-        lineCell.textContent = bp.lineNumber || 'N/A';
+        if (bp.lineNumber) {
+            const lineSpan = document.createElement('span');
+            lineSpan.className = 'line-number';
+            lineSpan.textContent = bp.lineNumber;
+
+            // Add click handler for navigation
+            lineSpan.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent row selection
+                navigateToBreakpoint(bp);
+            });
+
+            lineCell.appendChild(lineSpan);
+        } else {
+            lineCell.textContent = 'N/A';
+        }
         row.appendChild(lineCell);
 
-        // Add click event to show details
+        // Add click event to select breakpoint (but not navigate)
         row.addEventListener('click', () => {
             selectBreakpoint(bp);
         });
 
         tableBody.appendChild(row);
     });
+}
+
+function navigateToBreakpoint(breakpoint) {
+    if (breakpoint.filePath && breakpoint.lineNumber && window.goToBreakpoint) {
+        const link = `${breakpoint.filePath}|${breakpoint.lineNumber}`;
+        window.goToBreakpoint(link);
+
+        // Also select the breakpoint to show details
+        selectBreakpoint(breakpoint);
+    }
 }
 
 function selectBreakpoint(breakpoint) {
@@ -236,6 +273,12 @@ function setupListeners() {
 
     document.getElementById('close-details').addEventListener('click', () => {
         hideDetailPanel();
+    });
+
+    document.getElementById('navigate-button').addEventListener('click', () => {
+        if (selectedBreakpoint) {
+            navigateToBreakpoint(selectedBreakpoint);
+        }
     });
 }
 

@@ -287,7 +287,7 @@ tr.selected {
 /* Details panel */
 .details-panel {
     display: none;
-    height: 180px;
+    height: 200px;
     border-top: 1px solid var(--border-color);
     overflow: auto;
     background-color: var(--bg-color);
@@ -353,4 +353,63 @@ tr.selected {
 .disabled-row {
     color: var(--disabled-color);
     font-style: italic;
+}
+
+.navigate-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.action-buttons {
+    margin-top: 12px;
+}
+
+.button {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 4px 8px;
+    color: var(--text-color);
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.button:hover {
+    background-color: var(--hover-color);
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.button-primary:hover {
+    background-color: #2c5c8f;
+}
+
+.file-path {
+    cursor: pointer;
+}
+
+.file-path:hover .file-name {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.navigate-icon {
+    font-size: 12px;
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+.line-number {
+    cursor: pointer;
+}
+
+.line-number:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
