@@ -1,17 +1,21 @@
 package com.github.nikola352.breakpointtracker.frontend_server
 
 import com.github.nikola352.breakpointtracker.shared.BreakpointDto
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 
 /**
- * In-memory repository holding the breakpoint info.
+ * Thread safe, in-memory repository holding the breakpoint info.
  */
 class BreakpointRepository {
+    private val lock = ReentrantReadWriteLock()
     private var breakpointCount: Int = 0
     private var breakpoints: List<BreakpointDto> = emptyList()
 
-    val breakpointData get() = BreakpointData(breakpointCount, breakpoints)
+    val breakpointData get() = lock.read { BreakpointData(breakpointCount, breakpoints) }
 
-    fun update(breakpointCount: Int, breakpoints: List<BreakpointDto>) {
+    fun update(breakpointCount: Int, breakpoints: List<BreakpointDto>) = lock.write {
         this.breakpointCount = breakpointCount
         this.breakpoints = breakpoints
     }
