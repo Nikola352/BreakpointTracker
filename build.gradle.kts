@@ -31,6 +31,9 @@ repositories {
 
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
+    implementation(project(":shared"))
+    implementation(project(":frontend-server"))
+
     testImplementation(libs.junit)
     testImplementation(libs.opentest4j)
 

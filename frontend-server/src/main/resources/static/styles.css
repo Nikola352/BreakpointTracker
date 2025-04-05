@@ -1,0 +1,415 @@
+:root {
+    /* Light theme variables */
+    --bg-color-light: #f7f7f7;
+    --text-color-light: #393939;
+    --text-secondary-light: #777777;
+    --border-color-light: #e0e0e0;
+    --hover-color-light: #e8e8e8;
+    --header-bg-light: #f2f2f2;
+    --disabled-color-light: #999999;
+
+    /* Dark theme variables */
+    --bg-color-dark: #2b2b2b;
+    --text-color-dark: #bbbbbb;
+    --text-secondary-dark: #888888;
+    --border-color-dark: #3c3f41;
+    --hover-color-dark: #323232;
+    --header-bg-dark: #3c3f41;
+    --disabled-color-dark: #777777;
+
+    /* Common colors (same for both themes) */
+    --primary-color: #3b73af; /* IntelliJ blue */
+    --type-line: #6d9a61; /* Green */
+    --type-function: #cc7832; /* Orange */
+    --type-field: #7d7dc6; /* Purple */
+    --type-exception: #df3a3a; /* Red */
+    --type-unknown: #919191; /* Gray */
+
+    /* Default to light theme */
+    --bg-color: var(--bg-color-light);
+    --text-color: var(--text-color-light);
+    --text-secondary: var(--text-secondary-light);
+    --border-color: var(--border-color-light);
+    --hover-color: var(--hover-color-light);
+    --header-bg: var(--header-bg-light);
+    --disabled-color: var(--disabled-color-light);
+}
+
+/* Dark theme detection */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: var(--bg-color-dark);
+        --text-color: var(--text-color-dark);
+        --text-secondary: var(--text-secondary-dark);
+        --border-color: var(--border-color-dark);
+        --hover-color: var(--hover-color-dark);
+        --header-bg: var(--header-bg-dark);
+        --disabled-color: var(--disabled-color-dark);
+    }
+}
+
+/* Theme class-based overrides - for manual theme detection */
+.theme-dark {
+    --bg-color: var(--bg-color-dark);
+    --text-color: var(--text-color-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border-color: var(--border-color-dark);
+    --hover-color: var(--hover-color-dark);
+    --header-bg: var(--header-bg-dark);
+    --disabled-color: var(--disabled-color-dark);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "JetBrains Mono", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 13px;
+    overflow: hidden;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Toolbar styling */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--header-bg);
+}
+
+.toolbar-title {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-title h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.count-badge {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Search styling */
+.search-container {
+    position: relative;
+}
+
+.search-container input {
+    padding: 5px 10px 5px 28px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: 12px;
+    width: 200px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+/* Filter styling */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+select {
+    padding: 5px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: 12px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.toggle-container input {
+    margin-right: 5px;
+}
+
+/* Table styling */
+.table-container {
+    flex: 1;
+    overflow: auto;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+th {
+    background-color: var(--header-bg);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+tbody tr {
+    background-color: var(--bg-color);
+}
+
+tr:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+tr.selected {
+    background-color: rgba(59, 115, 175, 0.1);
+}
+
+/* Column widths */
+.col-status {
+    width: 24px;
+}
+
+.col-type {
+    width: 90px;
+}
+
+.col-line {
+    width: 60px;
+}
+
+.col-class {
+    width: 20%;
+}
+
+/* Breakpoint type badges */
+.type-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    color: white;
+    font-weight: 500;
+}
+
+.type-LINE {
+    background-color: var(--type-line);
+}
+
+.type-FUNCTION {
+    background-color: var(--type-function);
+}
+
+.type-FIELD {
+    background-color: var(--type-field);
+}
+
+.type-EXCEPTION {
+    background-color: var(--type-exception);
+}
+
+.type-UNKNOWN {
+    background-color: var(--type-unknown);
+}
+
+/* Status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--type-line);
+}
+
+.status-disabled {
+    opacity: 0.4;
+}
+
+/* Empty state */
+.empty-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+/* Details panel */
+.details-panel {
+    display: none;
+    height: 200px;
+    border-top: 1px solid var(--border-color);
+    overflow: auto;
+    background-color: var(--bg-color);
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.details-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.details-content {
+    padding: 12px;
+}
+
+.detail-item {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.detail-label {
+    width: 80px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.detail-value {
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* File path styling */
+.file-path {
+    display: flex;
+    align-items: center;
+}
+
+.file-name {
+    font-weight: 500;
+}
+
+.file-dir {
+    color: var(--text-secondary);
+    margin-left: 4px;
+}
+
+.disabled-row {
+    color: var(--disabled-color);
+    font-style: italic;
+}
+
+.navigate-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.action-buttons {
+    margin-top: 12px;
+}
+
+.button {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 4px 8px;
+    color: var(--text-color);
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.button:hover {
+    background-color: var(--hover-color);
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.button-primary:hover {
+    background-color: #2c5c8f;
+}
+
+.file-path {
+    cursor: pointer;
+}
+
+.file-path:hover .file-name {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.navigate-icon {
+    font-size: 12px;
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+.line-number {
+    cursor: pointer;
+}
+
+.line-number:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}

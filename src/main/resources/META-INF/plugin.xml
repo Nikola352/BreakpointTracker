@@ -6,5 +6,27 @@
     <description>Track active breakpoints in your project</description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.xdebugger</depends>
 
+    <projectListeners>
+        <listener class="com.github.nikola352.breakpointtracker.messaging.BreakpointListener"
+                  topic="com.intellij.xdebugger.breakpoints.XBreakpointListener"/>
+
+        <listener class="com.github.nikola352.breakpointtracker.messaging.BreakpointChangeListener"
+                  topic="com.github.nikola352.breakpointtracker.messaging.BreakpointChangeNotifier"/>
+    </projectListeners>
+
+    <applicationListeners>
+        <listener class="com.github.nikola352.breakpointtracker.messaging.ThemeChangeListener"
+                  topic="com.intellij.ide.ui.LafManagerListener"/>
+    </applicationListeners>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity
+                implementation="com.github.nikola352.breakpointtracker.BreakpointTrackerActivity"/>
+
+        <toolWindow factoryClass="com.github.nikola352.breakpointtracker.ui.BreakpointTrackerToolWindowFactory"
+                    id="Breakpoint Tracker"
+                    anchor="bottom"/>
+    </extensions>
 </idea-plugin>
