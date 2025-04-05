@@ -9,8 +9,8 @@ import com.github.nikola352.breakpointtracker.shared.BreakpointTypeDto
 fun Breakpoint.toDto() = BreakpointDto(
     id = id,
     type = type.toDto(),
+    descriptor = descriptor,
     filePath = filePath,
-    className = className,
     lineNumber = lineNumber,
     enabled = enabled,
     timestamp = timestamp,

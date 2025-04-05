@@ -9,8 +9,8 @@ package com.github.nikola352.breakpointtracker.shared
 data class BreakpointDto(
     val id: String,
     val type: BreakpointTypeDto,
+    val descriptor: String?,
     val filePath: String?,
-    val className: String?,
     val lineNumber: Int?,
     val enabled: Boolean,
     val timestamp: Long,

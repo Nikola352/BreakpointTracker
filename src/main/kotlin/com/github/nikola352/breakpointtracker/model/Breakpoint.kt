@@ -1,14 +1,15 @@
 package com.github.nikola352.breakpointtracker.model
 
 import com.intellij.xdebugger.breakpoints.XBreakpoint
+import com.intellij.xdebugger.impl.breakpoints.shortText
 
 /**
  * Data class representing a breakpoint in the tracking system.
  *
  * @property id Unique identifier for the breakpoint
  * @property type The type of breakpoint (line, function, etc.)
+ * @property descriptor Short description in textual form
  * @property filePath Path to the file containing the breakpoint
- * @property className Name of the class containing the breakpoint
  * @property lineNumber Line number where breakpoint is set (1-based)
  * @property enabled Whether the breakpoint is currently active
  * @property timestamp When the breakpoint was last modified
@@ -16,8 +17,8 @@ import com.intellij.xdebugger.breakpoints.XBreakpoint
 data class Breakpoint(
     val id: String,
     val type: BreakpointType,
+    val descriptor: String,
     val filePath: String?,
-    val className: String?,
     val lineNumber: Int?,
     val enabled: Boolean,
     val timestamp: Long,
@@ -32,7 +33,7 @@ data class Breakpoint(
         id = "${breakpoint.type.id}-${System.identityHashCode(breakpoint)}",
         type = breakpoint.type.id.determineBreakpointType(),
         filePath = breakpoint.sourcePosition?.file?.path,
-        className = breakpoint.sourcePosition?.file?.javaClass?.simpleName,
+        descriptor = breakpoint.shortText,
         lineNumber = breakpoint.sourcePosition?.line?.plus(1),
         enabled = breakpoint.isEnabled,
         timestamp = timestamp,
