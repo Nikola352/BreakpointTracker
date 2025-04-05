@@ -32,6 +32,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-server-cors")
     implementation("io.ktor:ktor-serialization-gson")
+    implementation("io.ktor:ktor-server-websockets")
 
     implementation(project(":shared"))
 }
