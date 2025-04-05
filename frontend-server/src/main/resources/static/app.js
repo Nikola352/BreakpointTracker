@@ -214,10 +214,8 @@ function fetchBreakpoints() {
         .catch(error => console.error('Error fetching breakpoints:', error));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    connectWebSocket();
-
-    // Set up event listeners for search and filters
+/** Set up event listeners for search and filters */
+function setupListeners() {
     document.getElementById('search-input').addEventListener('input', () => {
         if (currentBreakpoints.length > 0) {
             updateBreakpointsUI({ breakpointCount: currentBreakpoints.length, breakpoints: currentBreakpoints });
@@ -239,6 +237,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('close-details').addEventListener('click', () => {
         hideDetailPanel();
     });
+}
+
+/** Set theme based on url parameter */
+function setTheme() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const theme = urlParams.get('theme') || 'light';
+
+    document.body.classList.add(`theme-${theme}`);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTheme();
+    connectWebSocket();
+    setupListeners();
 
     // Fallback to REST API if WebSocket connection fails
     setTimeout(() => {
