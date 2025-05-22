@@ -1,5 +1,6 @@
 # BreakpointTracker
 
+<!-- Plugin description -->
 A powerful IntelliJ plugin that provides a comprehensive overview of all breakpoints in your project.
 
 ## Features
@@ -8,6 +9,7 @@ A powerful IntelliJ plugin that provides a comprehensive overview of all breakpo
 - **Quick Navigation**: Click on any breakpoint to open its location in the editor
 - **Real-time Updates**: Changes to breakpoints are immediately reflected in the overview
 - **Theming Support**: Fully compatible with both light and dark IDE themes
+<!-- Plugin description end -->
 
 ## Installation
 

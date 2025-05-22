@@ -30,7 +30,7 @@ class BreakpointTrackerServer {
 
     private val server = embeddedServer(
         CIO,
-        port = 8080,
+        port = 7159,
         host = "0.0.0.0",
         module = { module() }
     ).start(wait = false)

@@ -27,6 +27,7 @@
 
         <toolWindow factoryClass="com.github.nikola352.breakpointtracker.ui.BreakpointTrackerToolWindowFactory"
                     id="Breakpoint Tracker"
-                    anchor="bottom"/>
+                    anchor="bottom"
+                    icon="AllIcons.Debugger.MultipleBreakpointsMuted"/>
     </extensions>
 </idea-plugin>
