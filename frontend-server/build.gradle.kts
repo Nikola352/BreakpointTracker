@@ -3,7 +3,7 @@ val logback_version: String by project
 
 plugins {
     kotlin("jvm") version "2.1.21"
-    id("io.ktor.plugin") version "3.1.3"
+    id("io.ktor.plugin") version "3.3.0"
 }
 
 group = "com.github.nikola352.breakpointtracker"
